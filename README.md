@@ -10,7 +10,7 @@ docker build -t MYID/fluentd-custom .
 
 ### Create your configuration file
 
-# Sample basic configuration file
+#### Sample basic configuration file
 ```
 cat << EOF >> /tmp/fluentd.conf
 <source>
@@ -33,8 +33,11 @@ EOF
 ls -l /tmp/service.json
 ```
 
-```
-docker run --rm -p 24224:24224 -e BASE64_SERVICE_ACCOUNT=`base64 /tmp/service.json|tr -d '\n'` -e BASE64_FLUENTD_CONFIG=`base64 /tmp/fluentd.conf|tr -d '\n'`  MYID/fluentd-custom
-```
+### Spin up your container
 
-
+```
+docker run --rm -p 24224:24224  \
+  -e BASE64_SERVICE_ACCOUNT=`base64 /tmp/service.json|tr -d '\n'` \
+  -e BASE64_FLUENTD_CONFIG=`base64 /tmp/fluentd.conf|tr -d '\n'` \
+   MYID/fluentd-custom
+```
